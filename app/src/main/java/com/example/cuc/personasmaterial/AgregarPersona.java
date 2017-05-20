@@ -9,6 +9,8 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 public class AgregarPersona extends AppCompatActivity {
     private EditText cajaCedula, cajaNombre, cajaApellido;
     private TextInputLayout icajaCedula, icajaNombre, icajaApellido;
+    private boolean guardado;
     private Resources res;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,30 @@ public class AgregarPersona extends AppCompatActivity {
         icajaCedula = (TextInputLayout)findViewById(R.id.cedulaPersona);
         icajaNombre = (TextInputLayout)findViewById(R.id.nombrePersona);
         icajaApellido = (TextInputLayout)findViewById(R.id.apellidoPersona);
+
+        guardado = false;
+
+        cajaCedula.addTextChangedListener(new TextWatcherPersonalizado(icajaCedula,"Digite la cédula!") {
+            @Override
+            public boolean estaVacio(Editable s) {
+                if(TextUtils.isEmpty(s) && !guardado) return true;
+                else return false;
+            }
+        });
+        cajaNombre.addTextChangedListener(new TextWatcherPersonalizado(icajaNombre,"Digite el Nombre!") {
+            @Override
+            public boolean estaVacio(Editable s) {
+                if(TextUtils.isEmpty(s)) return true;
+                else return false;
+            }
+        });
+        cajaApellido.addTextChangedListener(new TextWatcherPersonalizado(icajaApellido,"Digite el Apellido!") {
+            @Override
+            public boolean estaVacio(Editable s) {
+                if(TextUtils.isEmpty(s)) return true;
+                else return false;
+            }
+        });
 
         res = this.getResources();
     }
@@ -85,6 +112,7 @@ public class AgregarPersona extends AppCompatActivity {
 
             Snackbar.make(v,"Persona Guardada Exitosamente!",Snackbar.LENGTH_SHORT).show();
 
+            guardado = true;
             limpiar();
 
         }
@@ -95,5 +123,7 @@ public class AgregarPersona extends AppCompatActivity {
         cajaNombre.setText("");
         cajaApellido.setText("");
         cajaCedula.requestFocus();
+
+        guardado = false;
     }
 }
