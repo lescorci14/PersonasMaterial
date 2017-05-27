@@ -16,7 +16,7 @@ public class Datos {
 
         //Declarar variables
         SQLiteDatabase db;
-        String sql, foto, cedula, nombre, apellido;
+        String sql, uuid,urlfoto, cedula, nombre, apellido, idfoto;
         Persona p;
         //Abrir conexión de lectura
         PersonasSQLiteOpenHelper aux = new PersonasSQLiteOpenHelper(contexto,"DBPersonas",null);
@@ -29,11 +29,13 @@ public class Datos {
         //Recorrido del cursor
         if(c.moveToFirst()){
             do{
-                foto = c.getString(0);
-                cedula = c.getString(1);
-                nombre =c.getString(2);
-                apellido = c.getString(3);
-                p = new Persona(foto,cedula,nombre,apellido);
+                uuid = c.getString(0);
+                urlfoto=c.getString(1);
+                cedula = c.getString(2);
+                nombre =c.getString(3);
+                apellido = c.getString(4);
+                idfoto = c.getString(5);
+                p = new Persona(uuid,urlfoto,cedula,nombre,apellido,idfoto);
                 personas.add(p);
 
             }while (c.moveToNext());
@@ -50,10 +52,10 @@ public class Datos {
 
         //Declarar variables
         SQLiteDatabase db;
-        String sql, foto, cedula, nombre, apellido;
+        String sql, uuid,urlfoto, cedula, nombre, apellido,idfoto;
         Persona p=null;
         //Abrir conexión de lectura
-        PersonasSQLiteOpenHelper aux = new PersonasSQLiteOpenHelper(contexto,"DBPersonas",null);
+        PersonasSQLiteOpenHelper aux = new PersonasSQLiteOpenHelper(contexto,"dbPersonas",null);
         db = aux.getReadableDatabase();
 
         //Cursor
@@ -62,11 +64,15 @@ public class Datos {
 
         //Recorrido del cursor
         if(c.moveToFirst()){
-                foto = c.getString(0);
-                cedula = c.getString(1);
-                nombre =c.getString(2);
-                apellido = c.getString(3);
-                p = new Persona(foto,cedula,nombre,apellido);
+
+            uuid = c.getString(0);
+            urlfoto=c.getString(1);
+            cedula = c.getString(2);
+            nombre =c.getString(3);
+            apellido = c.getString(4);
+            idfoto = c.getString(5);
+
+            p = new Persona(uuid,urlfoto,cedula,nombre,apellido,idfoto);
         }
 
         db.close();

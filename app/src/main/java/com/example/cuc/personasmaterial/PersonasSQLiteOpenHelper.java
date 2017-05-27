@@ -5,13 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by Lab Software 1 on 13/05/2017.
+ * Created by Lab Software 1 on 20/05/2017.
  */
-
 public class PersonasSQLiteOpenHelper extends SQLiteOpenHelper {
-    private String sql = "CREATE TABLE Personas(foto text, cedula text, nombre text, apellido text)";
-    private static int version=1;
+    private String sql = "CREATE TABLE Personas(uuid text, urlfoto text, cedula text, nombre text, apellido text, idfoto text)";
+    private static int version=3;
     public PersonasSQLiteOpenHelper(Context contexto, String name, SQLiteDatabase.CursorFactory factory){
+
         super(contexto, name, factory,version);
     }
 
